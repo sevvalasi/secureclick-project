@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SecureClick — Bağlantı Güvenliği</title>
+  <meta name="description" content="Yapay zekâ destekli zararlı bağlantı tespit sistemi. SMS, e-posta ve sosyal medya mesajlarındaki bağlantıları tıklamadan önce kontrol edin.">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="#analiz" aria-label="SecureClick ana sayfa">
+      <svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 4 7v8c0 7.2 5.1 13.4 12 15 6.9-1.6 12-7.8 12-15V7z" fill="currentColor" opacity=".15"/><path d="M16 2 4 7v8c0 7.2 5.1 13.4 12 15 6.9-1.6 12-7.8 12-15V7z" fill="none" stroke="currentColor" stroke-width="2"/><path d="m10.5 16 4 4 7-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>SecureClick</span>
+    </a>
+    <nav class="nav" aria-label="Ana menü">
+      <a href="#analiz" data-page="analiz">Analiz</a>
+      <a href="#performans" data-page="performans">Model Performansı</a>
+      <a href="#hakkinda" data-page="hakkinda">Proje</a>
+      <a href="#api" data-page="api">API</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Temayı değiştir">◐</button>
+  </div>
+</header>
+
+<main>
+  <!-- ============================== ANALİZ ============================== -->
+  <section id="page-analiz" class="page">
+    <div class="hero wrap">
+      <h1>Tıklamadan önce kontrol et.</h1>
+      <p class="lead">SMS, e-posta veya sosyal medyadan gelen mesajı ya da bağlantıyı yapıştırın. SecureClick; URL yapısını,
+        alan adı özelliklerini ve Türkçe mesaj içeriğini birlikte analiz ederek bağlantının güvenli olup olmadığını söyler.</p>
+    </div>
+
+    <div class="wrap grid-analyze">
+      <form class="card input-card" id="analyzeForm" autocomplete="off">
+        <div class="tabs" role="tablist">
+          <button type="button" role="tab" class="tab active" data-mode="message" aria-selected="true">Mesaj</button>
+          <button type="button" role="tab" class="tab" data-mode="url" aria-selected="false">Yalnızca bağlantı</button>
+        </div>
+
+        <div class="mode mode-message">
+          <label for="message" class="sr-only">Mesaj metni</label>
+          <textarea id="message" rows="6" maxlength="5000" placeholder="Örn: PTT Kargo: Gönderiniz adres bilgisi eksik olduğu için teslim edilemedi. 24 saat içinde güncelleyin: http://…"></textarea>
+          <div class="examples">
+            <span>Örnek dene:</span>
+            <button type="button" class="chip" data-example="0">Sahte kargo</button>
+            <button type="button" class="chip" data-example="1">HGS cezası</button>
+            <button type="button" class="chip" data-example="2">Banka bildirimi</button>
+            <button type="button" class="chip" data-example="3">Arkadaş mesajı</button>
+          </div>
+        </div>
+        <div class="mode mode-url" hidden>
+          <label for="url" class="sr-only">Bağlantı</label>
+          <input id="url" type="text" inputmode="url" maxlength="2048" placeholder="https://ornek.com/giris">
+        </div>
+
+        <label class="switch">
+          <input type="checkbox" id="live">
+          <span class="switch-ui" aria-hidden="true"></span>
+          <span><strong>Canlı kontroller</strong> — yönlendirme zinciri, SSL sertifikası ve alan adı yaşı (WHOIS). Daha yavaştır; sayfa içeriği indirilmez.</span>
+        </label>
+
+        <button class="btn-primary" type="submit" id="submitBtn">
+          <span class="btn-label">Analiz et</span><span class="spinner" aria-hidden="true"></span>
+        </button>
+        <p class="hint">Gönderilen metin kaydedilmez. Bu bir araştırma prototipidir; kesin sonuç garantisi vermez.</p>
+      </form>
+
+      <div id="result" class="result" aria-live="polite">
+        <div class="card placeholder">
+          <div class="ph-icon" aria-hidden="true">🔍</div>
+          <p>Sonuç burada görünecek.</p>
+          <ul class="ph-list">
+            <li><b>URL analizi</b> — 40 sözcüksel özellik + karakter n-gram modeli</li>
+            <li><b>Türkçe NLP</b> — aciliyet, tehdit, ödül ve kimlik bilgisi isteme kalıpları</li>
+            <li><b>Karar</b> — Random Forest + SVM topluluğu ve metin modeli füzyonu</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== PERFORMANS ============================== -->
+  <section id="page-performans" class="page" hidden>
+    <div class="wrap">
+      <h1>Model performansı</h1>
+      <p class="lead">Tüm sayılar, eğitimde hiç görülmemiş sitelerden oluşan test kümesinde ölçülmüştür
+        (alan adına göre gruplu bölme). Hedefler öneri formundaki değerlerdir.</p>
+      <div id="perf" class="perf"><div class="card">Raporlar yükleniyor…</div></div>
+    </div>
+  </section>
+
+  <!-- ============================== HAKKINDA ============================== -->
+  <section id="page-hakkinda" class="page" hidden>
+    <div class="wrap prose">
+      <h1>SecureClick: Bağlantı Güvenliği Test ve Değerlendirme</h1>
+      <p class="lead">TÜBİTAK 2209-A Üniversite Öğrencileri Araştırma Projeleri kapsamında Recep Tayyip Erdoğan Üniversitesi'nde yürütülmektedir.</p>
+
+      <div class="team">
+        <div class="person"><span class="role">Yürütücü</span><b>Şevval Asi</b></div>
+        <div class="person"><span class="role">Araştırmacı</span><b>Tuğba Nur Uygun</b></div>
+        <div class="person"><span class="role">Danışman</span><b>Arş. Gör. Dr. Didem Genç</b></div>
+      </div>
+
+      <h2>Problem</h2>
+      <p>Statik kara listeler yalnızca daha önce raporlanmış tehditleri yakalar; yeni açılan kimlik avı siteleri listeye girene kadar
+        geçen sürede kullanıcılar korumasız kalır. SecureClick, bağlantının yapısından ve mesajın dilinden öğrenen modellerle
+        <em>henüz hiçbir listede olmayan</em> zararlı bağlantıları tespit etmeyi amaçlar.</p>
+
+      <h2>Araştırma sorusu ve hipotez</h2>
+      <blockquote>Makine öğrenmesi ve NLP tabanlı yöntemler, statik kara liste tabanlı sistemlere kıyasla zararlı bağlantıları
+        daha erken ve daha yüksek doğrulukla tespit edebilir mi?</blockquote>
+      <p><b>Hipotez:</b> Bağlantı metni + URL yapısının birlikte analiz edildiği modeller, yalnızca kara liste veya yalnızca URL
+        tabanlı yöntemlere göre daha yüksek doğruluk, hassasiyet ve erken tespit performansı sağlar. Sınamanın sonuçları
+        <a href="#performans">Model Performansı</a> sayfasındadır.</p>
+
+      <h2>Mimari</h2>
+      <div class="flow" role="img" aria-label="Akış: giriş, ön işleme, sınıflandırma, karar, bildirim">
+        <div class="flow-step"><b>Giriş</b><span>SMS · e-posta · sosyal medya · web formu</span></div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-step"><b>Ön işleme &amp; özellik çıkarımı</b><span>URL analizi · Türkçe NLP</span></div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-step"><b>Yapay zekâ sınıflandırma</b><span>RF + SVM · TF-IDF metin modeli</span></div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-step"><b>Karar mekanizması</b><span>Füzyon + canlı sinyaller</span></div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-step accent"><b>Anlık bildirim</b><span>Güvenli · Şüpheli · Zararlı</span></div>
+      </div>
+
+      <h2>Yöntem</h2>
+      <ol class="steps">
+        <li><b>Veri toplama.</b> Zararlı URL'ler PhishTank, URLHaus ve OpenPhish'ten; güvenli URL'ler Tranco listesindeki popüler sitelerin
+          (Türk siteleri dahil) herkese açık site haritalarından toplandı. Yalnızca ana sayfa kullanmak modelin "kısa URL = güvenli"
+          kestirmesini öğrenmesine yol açacağından gerçek, derin yollu URL'ler tercih edildi. Türkçe metin için TurkishSMSCollection
+          (Karasoy &amp; Ballı, 2021) ve Türkiye'ye özgü dolandırıcılık kalıplarından üretilen etiketli senaryolar kullanıldı.</li>
+        <li><b>Ön işleme.</b> Tekrarlar ve hatalı kayıtlar ayıklandı, protokol ve <code>www.</code> önekleri standartlaştırıldı, Türkçe metin küçük harfe
+          ve ASCII'ye indirgendi. %80 / %10 / %10 katmanlı bölme <em>alan adına göre gruplu</em> yapıldı; aynı site hem eğitimde hem testte bulunmaz.</li>
+        <li><b>Özellik çıkarımı.</b> URL uzunluğu ve karakter dağılımı, özel karakterler, alt alan adı sayısı, IP/port kullanımı, kısaltıcı ve ücretsiz
+          barındırma tespiti, şüpheli TLD, punycode, entropi, marka taklidi, riskli dosya uzantısı; metinde TF-IDF (1-2 gram), aciliyet/tehdit/ödül/kimlik
+          bilgisi kalıpları ve sözlük tabanlı duygu skoru.</li>
+        <li><b>Modeller.</b> Random Forest, Gradient Boosting, karakter n-gram SVM ve TF-IDF + Lojistik Regresyon; sınırlı grid search, 5 katlı çapraz
+          doğrulama, Precision-Recall eğrisiyle eşik seçimi, McNemar testiyle karşılaştırma.</li>
+        <li><b>Canlı kontroller.</b> Alan adı yaşı, SSL ve yönlendirme zinciri ağ erişimi gerektirdiğinden modele değil, tahmin anında ek risk katmanına
+          eklendi. Veri setindeki eski kimlik avı sitelerinin çoğu artık kapalı olduğundan bu özelliklerle eğitmek eğitim/kullanım tutarsızlığı yaratırdı.</li>
+      </ol>
+
+      <h2>Etik ve veri güvenliği</h2>
+      <ul>
+        <li>Eğitimde yalnızca açık kaynak veriler kullanıldı; gerçek kullanıcı mesajı toplanmadı.</li>
+        <li>Analiz edilen mesajlar sunucuda saklanmaz (KVKK / GDPR ilkeleri).</li>
+        <li>Canlı kontrollerde sayfa içeriği indirilmez; özel/yerel ağ adreslerine istek gönderilmez.</li>
+        <li>Sistem yalnızca savunma amaçlıdır.</li>
+      </ul>
+
+      <h2>Kaynaklar</h2>
+      <ol class="refs">
+        <li>Ma, J., Saul, L. K., Savage, S., &amp; Voelker, G. M. (2009). Beyond Blacklists: Learning to Detect Malicious Web Sites from Suspicious URLs. <i>KDD</i>.</li>
+        <li>Le, H., Pham, Q., Sahoo, D., &amp; Hoi, S. C. H. (2018). URLNet: Learning a URL Representation with Deep Learning for Malicious URL Detection. <i>arXiv:1802.03162</i>.</li>
+        <li>Sahoo, D., Liu, C., &amp; Hoi, S. C. H. (2017). Malicious URL Detection using Machine Learning: A Survey. <i>arXiv:1701.07179</i>.</li>
+        <li>Bahnsen, A. C. vd. (2017). Classifying Phishing URLs Using Recurrent Neural Networks. <i>APWG eCrime</i>.</li>
+        <li>Marchal, S., François, J., State, R., &amp; Engel, T. (2014). PhishStorm: Detecting Phishing With Streaming Analytics. <i>IEEE TNSM</i>.</li>
+        <li>Karasoy, O., &amp; Ballı, S. (2021). Spam SMS Detection for Turkish Language with Deep Text Analysis and Deep Learning Methods. <i>Arab J Sci Eng</i>.</li>
+        <li>Schweter, S. (2020). BERTurk — BERT models for Turkish. <i>Zenodo</i>.</li>
+        <li>PhishTank, URLHaus (abuse.ch), OpenPhish, Tranco veri kaynakları (erişim: 2026).</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================== API ============================== -->
+  <section id="page-api" class="page" hidden>
+    <div class="wrap prose">
+      <h1>REST API</h1>
+      <p class="lead">Android uygulaması, tarayıcı eklentisi veya başka bir servis aynı analiz motorunu kullanabilir.
+        Etkileşimli dokümantasyon: <a href="/docs">/docs</a></p>
+      <h2>POST /api/analyze</h2>
+      <pre><code>curl -X POST http://localhost:8000/api/analyze \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Kargonuz teslim edilemedi, adresinizi güncelleyin: http://ptt-kargo-takip.xyz/tr", "live_checks": false}'</code></pre>
+      <h3>Alanlar</h3>
+      <table class="tbl">
+        <thead><tr><th>Alan</th><th>Tür</th><th>Açıklama</th></tr></thead>
+        <tbody>
+          <tr><td><code>message</code></td><td>string</td><td>Mesaj metni; içindeki tüm bağlantılar otomatik çıkarılır (≤ 5000 karakter)</td></tr>
+          <tr><td><code>url</code></td><td>string</td><td>Tek bağlantı (isteğe bağlı)</td></tr>
+          <tr><td><code>live_checks</code></td><td>bool</td><td>Yönlendirme, SSL ve WHOIS kontrolleri (varsayılan: false)</td></tr>
+        </tbody>
+      </table>
+      <h3>Yanıt (kısaltılmış)</h3>
+      <pre><code>{
+  "verdict": "malicious",          // safe | suspicious | malicious
+  "score": 0.97,
+  "links": [{
+    "url": "http://ptt-kargo-takip.xyz/tr",
+    "verdict": "malicious",
+    "model_scores": {"random_forest": 0.95, "svm": 0.99, "ensemble": 0.97},
+    "signals": [{"level": "high", "message": "Bilinen bir marka adı geçiyor ama alan adı o markaya ait değil."}]
+  }],
+  "text": {"score": 0.98, "signals": [{"level": "medium", "message": "Aciliyet baskısı kuruluyor…"}]},
+  "elapsed_ms": 18.4
+}</code></pre>
+      <h2>Diğer uç noktalar</h2>
+      <ul>
+        <li><code>GET /api/health</code> — servis ve model durumu</li>
+        <li><code>GET /api/metrics</code> — eğitim ve değerlendirme raporları (JSON)</li>
+      </ul>
+      <p>IP başına dakikada 30 istek sınırı vardır.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">SecureClick · TÜBİTAK 2209-A · Recep Tayyip Erdoğan Üniversitesi · Araştırma prototipi</div>
+</footer>
+
+<script src="/assets/app.js" defer></script>
+</body>
+</html>

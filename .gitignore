@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+.env
+
+# Ham ve işlenmiş veri (betiklerle yeniden üretilebilir; bkz. README)
+data/raw/*
+data/processed/*
+
+# Eğitilmiş modeller repoda tutulur (~7 MB) ki klonlayan kişi eğitim yapmadan çalıştırabilsin.
+# BERTurk ağırlıkları çok büyük olduğundan dışarıda bırakılır.
+models/bert/
+!data/raw/.gitkeep
+!data/processed/.gitkeep

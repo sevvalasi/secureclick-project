@@ -1,0 +1,236 @@
+{
+  "fusion_rule": {
+    "mode": "noisy_or"
+  },
+  "alpha": null,
+  "candidates": [
+    {
+      "mode": "weighted",
+      "alpha": 0.3,
+      "tune_f1": 0.8943
+    },
+    {
+      "mode": "weighted",
+      "alpha": 0.35,
+      "tune_f1": 0.8889
+    },
+    {
+      "mode": "weighted",
+      "alpha": 0.4,
+      "tune_f1": 0.8869
+    },
+    {
+      "mode": "weighted",
+      "alpha": 0.45,
+      "tune_f1": 0.8951
+    },
+    {
+      "mode": "weighted",
+      "alpha": 0.5,
+      "tune_f1": 0.8985
+    },
+    {
+      "mode": "weighted",
+      "alpha": 0.55,
+      "tune_f1": 0.8909
+    },
+    {
+      "mode": "weighted",
+      "alpha": 0.6,
+      "tune_f1": 0.8855
+    },
+    {
+      "mode": "weighted",
+      "alpha": 0.65,
+      "tune_f1": 0.8829
+    },
+    {
+      "mode": "weighted",
+      "alpha": 0.7,
+      "tune_f1": 0.8829
+    },
+    {
+      "mode": "weighted",
+      "alpha": 0.75,
+      "tune_f1": 0.8795
+    },
+    {
+      "mode": "weighted",
+      "alpha": 0.8,
+      "tune_f1": 0.8716
+    },
+    {
+      "mode": "weighted",
+      "alpha": 0.85,
+      "tune_f1": 0.8622
+    },
+    {
+      "mode": "weighted",
+      "alpha": 0.9,
+      "tune_f1": 0.858
+    },
+    {
+      "mode": "weighted",
+      "alpha": 0.95,
+      "tune_f1": 0.843
+    },
+    {
+      "mode": "max",
+      "tune_f1": 0.9207
+    },
+    {
+      "mode": "noisy_or",
+      "tune_f1": 0.9259
+    }
+  ],
+  "thresholds": {
+    "fusion": 0.996818048967871,
+    "url_only": 0.029752499359557993,
+    "text_only": 0.7900041841951707
+  },
+  "n_test": 391,
+  "n_tune": 259,
+  "results": {
+    "blacklist": {
+      "accuracy": 0.6113,
+      "precision": 0.9905,
+      "recall": 0.4078,
+      "f1": 0.5778,
+      "roc_auc": 0.7002,
+      "fpr": 0.0074,
+      "threshold": 0.5,
+      "confusion": {
+        "tn": 135,
+        "fp": 1,
+        "fn": 151,
+        "tp": 104
+      },
+      "n": 391
+    },
+    "url_only": {
+      "accuracy": 0.7596,
+      "precision": 0.7492,
+      "recall": 0.949,
+      "f1": 0.8374,
+      "roc_auc": 0.9236,
+      "fpr": 0.5956,
+      "threshold": 0.0298,
+      "confusion": {
+        "tn": 55,
+        "fp": 81,
+        "fn": 13,
+        "tp": 242
+      },
+      "n": 391
+    },
+    "text_only": {
+      "accuracy": 0.7391,
+      "precision": 0.7722,
+      "recall": 0.851,
+      "f1": 0.8097,
+      "roc_auc": 0.8398,
+      "fpr": 0.4706,
+      "threshold": 0.79,
+      "confusion": {
+        "tn": 72,
+        "fp": 64,
+        "fn": 38,
+        "tp": 217
+      },
+      "n": 391
+    },
+    "fusion": {
+      "accuracy": 0.9105,
+      "precision": 0.9583,
+      "recall": 0.902,
+      "f1": 0.9293,
+      "roc_auc": 0.9477,
+      "fpr": 0.0735,
+      "threshold": 0.9968,
+      "confusion": {
+        "tn": 126,
+        "fp": 10,
+        "fn": 25,
+        "tp": 230
+      },
+      "n": 391
+    }
+  },
+  "accuracy_by_kind": {
+    "consistent": {
+      "url_only": 0.7477,
+      "text_only": 0.7508,
+      "fusion": 0.9564,
+      "n": 321
+    },
+    "phish_text_benign_url": {
+      "url_only": 0.675,
+      "text_only": 0.75,
+      "fusion": 0.575,
+      "n": 40
+    },
+    "benign_text_mal_url": {
+      "url_only": 1.0,
+      "text_only": 0.6,
+      "fusion": 0.8667,
+      "n": 30
+    }
+  },
+  "mcnemar_fusion_vs_url_only": {
+    "b": 82,
+    "c": 23,
+    "statistic": 32.038,
+    "p_value": 1.5117868997073602e-08,
+    "method": "chi2_cc"
+  },
+  "mcnemar_fusion_vs_blacklist": {
+    "b": 128,
+    "c": 11,
+    "statistic": 96.806,
+    "p_value": 7.647348555474732e-23,
+    "method": "chi2_cc"
+  },
+  "examples": [
+    {
+      "text": "DEGERLI MUSTERIMIZ, YAPI KREDI HESABINIZ GUVENLIK NEDENIYLE ASKIYA ALINMISTIR. BILGILERINIZI GUNCELLEYIN https://hotm.art/SY8W0Dp1",
+      "label": 1,
+      "kind": "consistent"
+    },
+    {
+      "text": "Sayın Müşterimiz, Mehmet bu sen misin videoda?? https://raw.githubusercontent.com/zee839/APTBench/refs/heads/main/data/deepresearch/plan_en/APT-Bench-v3.0.zip",
+      "label": 1,
+      "kind": "consistent"
+    },
+    {
+      "text": "Turkcell: Yurt dışı paketiniz tanımlandı, iyi yolculuklar! Kullanım detayları https://www.checkdomain.de/domains/domain-umzug/",
+      "label": 0,
+      "kind": "consistent"
+    },
+    {
+      "text": "KRIPTO ILE GÜNDE 350 TL KAZANÇ! UZMAN EKIBIMIZLE YATIRIM YAPIN, KONTENJAN SINIRLI https://linkin.bio/ferjeje İYI GÜNLER.",
+      "label": 1,
+      "kind": "consistent"
+    },
+    {
+      "text": "Toplantı Cumartesi saat 14:00'te, konum: https://www.onetrust.com/resources/soc-2-compliance/",
+      "label": 0,
+      "kind": "consistent"
+    },
+    {
+      "text": "Hocam odev dosyasini buraya yukledim, giris yapip indirebilirsiniz https://gwdg.de/en/news/2019-10-studentische-hilfskraft-mwd-gesucht/ SMS almamak için RET yazıp gönderin.",
+      "label": 1,
+      "kind": "phish_text_benign_url"
+    },
+    {
+      "text": "BELEDIYEMIZIN PERSEMBE GUNU DUZENLEYECEGI ETKINLIGE DAVETLISINIZ. PROGRAM: https://www.buzzvil.com/en/term/sdk-terms",
+      "label": 0,
+      "kind": "consistent"
+    },
+    {
+      "text": "Duyuru: Toplantı Pazartesi saat 14:00'te, konum: https://www.teachoo.com/17495/3905/What-causes-Demand-of-Foreign-Exchange-/category/Chapter-6-Part-1---Foreign-Exchange-Rates/",
+      "label": 0,
+      "kind": "consistent"
+    }
+  ],
+  "generated_at": "2026-10-16T22:22:53.401633+00:00"
+}
