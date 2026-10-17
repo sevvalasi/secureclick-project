@@ -47,7 +47,9 @@ def load_malicious() -> pd.DataFrame:
 
 
 def load_benign() -> pd.DataFrame:
-    df = pd.read_csv(RAW / "benign_sitemap.csv", usecols=["url", "domain", "source"])
+    files = [RAW / "benign_sitemap.csv", RAW / "benign_cc.csv"]
+    df = pd.concat([pd.read_csv(f, usecols=["url", "domain", "source"]) for f in files if f.exists()],
+                   ignore_index=True)
     homes = pd.DataFrame({"url": "https://" + df["domain"].dropna().drop_duplicates() + "/", "source": "home"})
     df = df[df["source"].isin(["sitemap", "commoncrawl"])]
     df = pd.concat([df[["url", "source"]], homes], ignore_index=True)

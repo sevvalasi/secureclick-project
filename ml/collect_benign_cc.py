@@ -4,7 +4,8 @@ Common Crawl, web'in herkese açık arşividir. Her Tranco alan adı için son t
 HTTP 200 dönen HTML sayfalarının URL'leri sorgulanır. Yanıt küçük olduğundan (alan adı
 başına ~20 KB) yavaş bağlantılarda site haritası taramasından çok daha verimlidir.
 
-Sonuçlar data/raw/benign_sitemap.csv dosyasına source='commoncrawl' olarak eklenir.
+Sonuçlar data/raw/benign_cc.csv dosyasına source='commoncrawl' olarak eklenir
+(site haritası toplayıcısıyla aynı anda çalışabilsin diye ayrı dosya).
 Kullanım:  python -m ml.collect_benign_cc [--target 50000] [--per-domain 25]
 """
 from __future__ import annotations
@@ -56,13 +57,15 @@ def main():
     ap.add_argument("--tr-share", type=float, default=0.2, help="Türk (.tr) alan adı oranı")
     args = ap.parse_args()
 
-    out = RAW / "benign_sitemap.csv"
+    out = RAW / "benign_cc.csv"
     have, done = 0, set()
-    if out.exists():
-        for r in csv.DictReader(open(out, encoding="utf-8")):
+    for path in (RAW / "benign_sitemap.csv", out):
+        if not path.exists():
+            continue
+        for r in csv.DictReader(open(path, encoding="utf-8")):
             if r["source"] in ("sitemap", "commoncrawl"):
                 have += 1
-            if r["source"] in ("tried", "commoncrawl", "cc_tried"):
+            if r["source"] in ("commoncrawl", "cc_tried"):
                 done.add(r["domain"])
     need = args.target - have
     print(f"Mevcut {have:,} URL; hedefe {max(need, 0):,} kaldı")
@@ -70,7 +73,7 @@ def main():
         return
 
     rows = list(csv.reader(open(RAW / "tranco.csv", encoding="utf-8")))
-    top = [d for _, d in rows[:20000] if d not in done]
+    top = [d for _, d in rows[:60000] if d not in done]
     tr = [d for _, d in rows if d.endswith(".tr") and d not in done][:4000]
     n_dom = need // max(args.per_domain // 2, 1) + 200  # her alan adı ortalama ~yarısı kadar verir
     n_tr = int(n_dom * args.tr_share)

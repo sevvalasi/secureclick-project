@@ -1,5 +1,5 @@
 {
-  "ensemble_threshold": 0.5124071290130418,
+  "ensemble_threshold": 0.5360396336045806,
   "members": [
     "random_forest",
     "svm"

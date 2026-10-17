@@ -8,31 +8,32 @@ URL yapısını, alan adı özelliklerini ve **Türkçe mesaj içeriğini** birl
 
 ## Sonuçlar
 
-> Veri: **25.852 URL** (12.926 zararlı / 12.926 güvenli, 11.958 farklı site). Öneri formundaki sınıf başına 50.000 hedefine yavaş ağ bağlantısı nedeniyle henüz ulaşılamadı; toplayıcılar kaldığı yerden devam eder (bkz. *Veri setini büyütme*).
+> Veri: **100.000 URL** — 50.000 zararlı (PhishTank, URLHaus, OpenPhish) / 50.000 güvenli (Tranco site haritaları), 41.247 farklı site. Öneri formundaki "en az 50.000 zararlı + 50.000 güvenli" hedefi karşılandı.
 
-### URL modelleri — test kümesi (eğitimde görülmemiş siteler)
+### URL modelleri — test kümesi (eğitimde görülmemiş siteler, n = 9.999)
 
 | Model | Accuracy | Precision | Recall | F1 | ROC-AUC | 5-kat CV F1 |
 |---|---|---|---|---|---|---|
 | *Hedef (öneri formu)* | *≥ %90* | *≥ %88* | *≥ %92* | *≥ %90* | *≥ 0,95* | |
-| Random Forest | %95,2 | %96,4 | %93,9 | %95,1 | 0,983 | %95,3 ± 1,4 |
-| Gradient Boosting | %94,6 | %96,4 | %92,7 | %94,5 | 0,986 | %95,6 ± 1,2 |
-| SVM (karakter n-gram) | %93,8 | %94,0 | %93,7 | %93,8 | 0,983 | %94,4 ± 0,9 |
-| TF-IDF + Lojistik Regresyon | %93,8 | %94,3 | %93,2 | %93,7 | 0,982 | %94,0 ± 1,6 |
-| **SecureClick Topluluk (RF + SVM)** | %96,2 | %97,5 | %95,0 | %96,2 | 0,991 | — |
+| Random Forest | %95,7 | %97,2 | %94,1 | %95,7 | 0,992 | %96,4 ± 0,4 |
+| Gradient Boosting | %96,2 | %96,9 | %95,5 | %96,2 | 0,992 | %96,5 ± 0,4 |
+| SVM (karakter n-gram) | %94,9 | %94,4 | %95,4 | %94,9 | 0,990 | %96,0 ± 0,6 |
+| TF-IDF + Lojistik Regresyon | %95,0 | %94,8 | %95,3 | %95,0 | 0,991 | %95,8 ± 0,7 |
+| **SecureClick Topluluk (RF + SVM)** | %96,7 | %98,4 | %94,9 | %96,6 | 0,996 | — |
 
-Topluluk modelinin yanlış alarm oranı (FPR): %2,5. Analiz süresi URL başına ~20 ms (hedef ≤ 2 sn).
+Topluluk modelinin yanlış alarm oranı (FPR): %1,5. Analiz süresi URL başına ~20 ms (hedef ≤ 2 sn).
 
 ### Erken tespit — yeni saldırılar (zamansal deney)
 
-Modeller ve kara liste yalnızca 2026-10-06 öncesindeki saldırıları gördü; test, bu tarihten sonra ortaya çıkan URL'lerle yapıldı.
+Modeller ve kara liste yalnızca 2026-10-06 öncesindeki saldırıları gördü; test, bu tarihten sonra ortaya çıkan 14.998 URL ile yapıldı.
 
 | Yöntem | Recall | Precision | F1 |
 |---|---|---|---|
-| Kara liste | %58,0 | %98,8 | %73,1 |
-| **SecureClick topluluğu** | **%98,9** | %95,2 | **%97,0** |
+| Kara liste | %65,7 | %98,2 | %78,7 |
+| Random Forest | %98,8 | %98,1 | %98,5 |
+| **SecureClick topluluğu** | **%99,5** | %97,0 | **%98,2** |
 
-Kara listenin kaçırdığı 1.085 yeni zararlı bağlantının 1.057 tanesini SecureClick yakaladı (McNemar p < 0,001).
+Kara listenin kaçırdığı 3.432 yeni zararlı bağlantının 3.387 tanesini (%98.7) SecureClick yakaladı (McNemar p < 0,001).
 
 ### Hipotez testi — URL + metin birlikte
 
@@ -40,19 +41,18 @@ Eğitimde kullanılmamış Türkçe senaryo şablonları + test kümesindeki ger
 
 | Yöntem | Accuracy | Precision | Recall | F1 |
 |---|---|---|---|---|
-| Kara liste | %61,1 | %99,1 | %40,8 | %57,8 |
-| Yalnızca URL | %76,0 | %74,9 | %94,9 | %83,7 |
-| Yalnızca mesaj metni | %73,9 | %77,2 | %85,1 | %81,0 |
-| **URL + metin** | **%91,0** | %95,8 | %90,2 | **%92,9** |
+| Kara liste | %61,4 | %97,3 | %42,0 | %58,6 |
+| Yalnızca URL | %78,0 | %78,3 | %91,8 | %84,5 |
+| Yalnızca mesaj metni | %70,1 | %73,6 | %84,3 | %78,6 |
+| **URL + metin** | **%88,2** | %92,0 | %89,8 | **%90,9** |
 
-McNemar (URL + metin vs. yalnızca URL): b = 82, c = 23, p = 1,5 × 10⁻⁸ → fark anlamlı; **hipotez bu veri setinde desteklendi**. (Senaryolar sentetiktir; pilot testle doğrulanmalıdır.)
+McNemar (URL + metin vs. yalnızca URL): b = 68, c = 28, p = 6,9 × 10⁻⁵ → fark anlamlı; **hipotez bu veri setinde desteklendi**. (Senaryolar sentetiktir; pilot testle doğrulanmalıdır.)
 
 ### Türkçe metin modeli
 
 TF-IDF (1-2 gram) + Lojistik Regresyon — TurkishSMSCollection test F1: %99,1; eğitimde görülmemiş dolandırıcılık şablonlarında F1: %81,4.
 
 Tüm grafikler (ROC/PR, karışıklık matrisi, özellik önemleri) uygulamanın **Model Performansı** sayfasındadır.
-
 
 ## Özellikler
 
@@ -97,11 +97,12 @@ pytest                             # testler
 
 ## Veri setini büyütme
 
-Güvenli URL toplayıcıları kaldığı yerden devam eder; ağ hızlıyken çalıştırıp hattı yeniden koşun:
+Güvenli URL toplayıcıları kaldığı yerden devam eder; daha büyük bir veri seti için çalıştırıp hattı yeniden koşun:
 
 ```bash
 python -m ml.collect_benign --domains 20000 --tr-domains 4000   # site haritaları
 python -m ml.collect_benign_cc --target 52000                   # alternatif: Common Crawl indeksi
+python -m ml.build_dataset --per-class 75000                     # yeni hedef
 python -m ml.pipeline --skip-download                           # veri seti → eğitim → raporlar
 ```
 

@@ -390,7 +390,7 @@
       "params": {
         "C": 0.1
       },
-      "threshold": 0.7037958962599665,
+      "threshold": 0.7037963304292542,
       "val_score": 0.9266,
       "cv5": {
         "f1": {
@@ -762,5 +762,5 @@
     "method": "exact"
   },
   "selected": "text_tfidf_lr",
-  "generated_at": "2026-10-16T22:22:48.941002+00:00"
+  "generated_at": "2026-10-17T06:18:39.498573+00:00"
 }

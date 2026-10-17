@@ -1,5 +1,5 @@
 {
   "mode": "noisy_or",
-  "malicious": 0.9968,
-  "suspicious": 0.5981
+  "malicious": 0.9884,
+  "suspicious": 0.593
 }
