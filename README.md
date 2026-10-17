@@ -6,6 +6,21 @@ URL yapısını, alan adı özelliklerini ve **Türkçe mesaj içeriğini** birl
 > TÜBİTAK 2209-A Üniversite Öğrencileri Araştırma Projeleri · Recep Tayyip Erdoğan Üniversitesi
 > Yürütücü: **Şevval Asi** · Araştırmacı: **Tuğba Nur Uygun** · Danışman: **Arş. Gör. Dr. Didem Genç**
 
+<table>
+  <tr>
+    <td width="60%"><img src="screenshots/web/web_02_analiz_sahte_kargo_zararli.png" alt="Web arayüzünde sahte kargo SMS'inin analizi"></td>
+    <td width="20%"><img src="screenshots/mobil/m07_baglanti_kontrolu_zararli.png" alt="Android: tıklamadan önce bağlantı kontrolü"></td>
+    <td width="20%"><img src="screenshots/mobil/m09_sms_uyarisi_bildirim.png" alt="Android: zararlı bağlantı içeren SMS uyarısı"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Web arayüzü — sahte kargo SMS'i</sub></td>
+    <td align="center"><sub>Tıklamadan önce kontrol</sub></td>
+    <td align="center"><sub>SMS uyarısı</sub></td>
+  </tr>
+</table>
+
+Tüm ekran görüntüleri ve önerilen şekil başlıkları: [screenshots/](screenshots/README.md)
+
 ## Sonuçlar
 
 > Veri: **100.000 URL** — 50.000 zararlı (PhishTank, URLHaus, OpenPhish) / 50.000 güvenli (Tranco site haritaları), 41.247 farklı site. Öneri formundaki "en az 50.000 zararlı + 50.000 güvenli" hedefi karşılandı.
@@ -68,13 +83,13 @@ Tüm grafikler (ROC/PR, karışıklık matrisi, özellik önemleri) uygulamanın
 ## Hızlı başlangıç
 
 ```bash
-git clone <repo-adresi> secureclick-web && cd secureclick-web
-./run.sh            # venv kurar, modeller yoksa eğitir, sunucuyu başlatır
+git clone https://github.com/sevvalasi/secureclick-project.git && cd secureclick-project
+./run.sh            # sanal ortamı kurar ve sunucuyu başlatır
 ```
 
-Tarayıcıda **http://localhost:8000** adresini açın.
+Tarayıcıda **http://localhost:8000** adresini açın. Eğitilmiş modeller repoda olduğundan veri indirmeye veya eğitime gerek yoktur.
 
-Adım adım:
+Modelleri sıfırdan eğitmek için (veriler ~50 MB indirilir; tam hat birkaç saat sürebilir):
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
@@ -96,6 +111,17 @@ pytest                             # testler
 ```
 
 İsteğe bağlı BERTurk: `pip install -r requirements-bert.txt && python -m ml.train_bert` (GPU / Colab önerilir).
+
+## Android uygulaması
+
+Android Studio'da `android/` klasörünü açıp çalıştırın veya:
+
+```bash
+cd android
+./gradlew assembleDebug    # app/build/outputs/apk/debug/app-debug.apk
+```
+
+Emülatör sunucuya `http://10.0.2.2:8000` adresinden bağlanır; gerçek telefonda bilgisayarın yerel IP adresini Ayarlar'a girin. Ayrıntılar: [android/README.md](android/README.md). GitHub Actions her yüklemede APK'yı derleyip *Artifacts* altına ekler.
 
 ## Veri setini büyütme
 
@@ -122,6 +148,7 @@ ml/                     Veri toplama, eğitim ve değerlendirme betikleri
 api/main.py             FastAPI: /api/analyze, /api/metrics, /api/health + web arayüzü
 web/                    Arayüz (bağımlılıksız HTML/CSS/JS, açık/koyu tema)
 android/                Android uygulaması (Java) + çevrimdışı cihaz modeli
+screenshots/            Rapor için web ve Android ekran görüntüleri
 reports/                Eğitim/değerlendirme raporları (JSON) — panoda gösterilir
 models/                 Eğitilmiş modeller (git'e eklenmez; hat ile üretilir)
 tests/                  pytest testleri
