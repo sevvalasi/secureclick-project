@@ -55,6 +55,9 @@ public final class Notifier {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setAutoCancel(true)
+                // Android bildirimdeki URL için otomatik "Bağlantıyı aç" düğmesi ekler; zararlı
+                // bağlantı uyarısında bu tehlikelidir, kapatılır.
+                .setAllowSystemGeneratedContextualActions(false)
                 .setContentIntent(pi);
         try {
             NotificationManagerCompat.from(c).notify(message.hashCode(), b.build());

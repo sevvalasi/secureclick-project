@@ -15,6 +15,7 @@
     <string name="recent">Son analizler</string>
     <string name="clear">Temizle</string>
     <string name="no_history">Henüz analiz yok.</string>
+    <string name="just_now">Az önce</string>
     <string name="privacy_note">Analiz için metin SecureClick sunucusuna gönderilir ve orada saklanmaz. Geçmiş yalnızca bu cihazda tutulur.</string>
 
     <string name="verdict_safe">Güvenli görünüyor</string>

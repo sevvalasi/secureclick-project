@@ -26,6 +26,22 @@ public final class Analyzer {
     private static final Set<String> SHORTENERS = new HashSet<>(Arrays.asList(
             "bit.ly", "tinyurl.com", "t.co", "goo.gl", "ow.ly", "is.gd", "cutt.ly", "rebrand.ly",
             "shorturl.at", "tiny.cc", "rb.gy", "t.ly", "s.id", "v.gd", "qrco.de", "ead.me", "q-r.to"));
+    private static final Set<String> SUSPICIOUS_TLDS = new HashSet<>(Arrays.asList(
+            "zip", "mov", "xyz", "top", "click", "link", "work", "support", "rest", "tk", "ml", "ga", "cf",
+            "gq", "icu", "cyou", "buzz", "sbs", "cfd", "online", "site", "live", "shop", "info", "bond", "cam"));
+    private static final String[] SUSPICIOUS_WORDS = {
+            "login", "signin", "verify", "secure", "account", "update", "confirm", "password", "webscr",
+            "giris", "dogrula", "guvenlik", "hesap", "sifre", "odeme", "iade", "ceza", "borc"};
+    /** Marka -> resmî alan adı sonekleri (secureclick.features.url_features.OFFICIAL_DOMAINS'in özeti). */
+    private static final String[][] BRANDS = {
+            {"paypal", "paypal.com"}, {"apple", "apple.com"}, {"icloud", "icloud.com"},
+            {"microsoft", "microsoft.com"}, {"netflix", "netflix.com"}, {"instagram", "instagram.com"},
+            {"whatsapp", "whatsapp.com"}, {"facebook", "facebook.com"}, {"amazon", "amazon.com"},
+            {"garanti", "garantibbva.com.tr"}, {"akbank", "akbank.com"}, {"ziraat", "ziraatbank.com.tr"},
+            {"isbank", "isbank.com.tr"}, {"yapikredi", "yapikredi.com.tr"}, {"halkbank", "halkbank.com.tr"},
+            {"vakifbank", "vakifbank.com.tr"}, {"ptt", "ptt.gov.tr"}, {"edevlet", "turkiye.gov.tr"},
+            {"e-devlet", "turkiye.gov.tr"}, {"hepsiburada", "hepsiburada.com"}, {"trendyol", "trendyol.com"},
+            {"turkcell", "turkcell.com.tr"}, {"vodafone", "vodafone.com.tr"}, {"papara", "papara.com"}};
     private static final Pattern IPV4 = Pattern.compile("^\\d{1,3}(\\.\\d{1,3}){3}$");
     private static final Pattern RISKY_EXT = Pattern.compile(
             "(?i).*\\.(exe|apk|sh|bin|scr|bat|cmd|msi|jar|vbs|ps1|zip|rar|7z|iso)$");
@@ -98,6 +114,24 @@ public final class Analyzer {
         if (RISKY_EXT.matcher(path).matches()) add(link, "high", "Bağlantı çalıştırılabilir/arşiv dosyasına işaret ediyor.");
         if (SHORTENERS.contains(host)) add(link, "medium", "URL kısaltma servisi kullanılıyor; gerçek hedef gizleniyor.");
         if (port > 0 && port != 80 && port != 443) add(link, "medium", "Standart dışı port numarası kullanılıyor.");
+        if (!IPV4.matcher(host).matches()) {
+            for (String[] b : BRANDS) {
+                boolean inHost = b[0].length() >= 5 ? host.contains(b[0])
+                        : Arrays.asList(host.split("[^a-z0-9]+")).contains(b[0]);
+                if (inHost && !(host.equals(b[1]) || host.endsWith("." + b[1]) || host.endsWith(".gov.tr"))) {
+                    add(link, "high", "Bilinen bir marka adı geçiyor ama alan adı o markaya ait değil.");
+                    break;
+                }
+            }
+            String tld = host.substring(host.lastIndexOf('.') + 1);
+            if (SUSPICIOUS_TLDS.contains(tld)) add(link, "medium", "Kötüye kullanımı sık görülen bir üst düzey alan adı (TLD).");
+            int dots = host.length() - host.replace(".", "").length();
+            if (dots >= 4) add(link, "medium", "Çok sayıda alt alan adı (" + (dots - 1) + ").");
+        }
+        String lower = url.toLowerCase(Locale.ROOT);
+        int words = 0;
+        for (String w : SUSPICIOUS_WORDS) if (lower.contains(w)) words++;
+        if (words >= 2) add(link, "medium", "URL'de 'giriş/doğrula/hesap/şifre' gibi kimlik avı kelimeleri var.");
         if (url.length() > 100) add(link, "low", "URL alışılmadık derecede uzun (" + url.length() + " karakter).");
     }
 

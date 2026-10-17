@@ -14,3 +14,4 @@ data/processed/*
 models/bert/
 !data/raw/.gitkeep
 !data/processed/.gitkeep
+node_modules/

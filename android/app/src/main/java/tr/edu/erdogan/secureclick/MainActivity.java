@@ -169,13 +169,19 @@ public class MainActivity extends AppCompatActivity {
             t.setEllipsize(android.text.TextUtils.TruncateAt.END);
             t.setPadding(dp(8), 0, dp(8), 0);
             row.addView(t, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-            row.addView(line(DateUtils.getRelativeTimeSpanString(e.time).toString(), R.color.muted));
+            row.addView(line(relativeTime(e.time), R.color.muted));
             row.setOnClickListener(v -> {
                 input.setText(e.input);
                 runAnalysis();
             });
             history.addView(row);
         }
+    }
+
+    private String relativeTime(long t) {
+        long now = System.currentTimeMillis();
+        if (now - t < DateUtils.MINUTE_IN_MILLIS) return getString(R.string.just_now);
+        return DateUtils.getRelativeTimeSpanString(t, now, DateUtils.MINUTE_IN_MILLIS).toString();
     }
 
     private TextView line(String s, int colorRes) {

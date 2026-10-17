@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Açık gezinme çubuğu simgeleri API 27+ -->
+    <style name="Theme.SecureClick" parent="Base.Theme.SecureClick">
+        <item name="android:windowLightNavigationBar">@bool/light_bars</item>
+    </style>
+</resources>
