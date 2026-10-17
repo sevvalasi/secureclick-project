@@ -3,6 +3,7 @@ package tr.edu.erdogan.secureclick;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,7 +27,7 @@ public final class UrlExtractor {
         while (m.find()) {
             String u = m.group(1).replaceAll("[.,;:!?)\\]}]+$", "");
             String hostPart = u.split("/", 2)[0];
-            if (hostPart.contains("@") && !u.toLowerCase().startsWith("http")) {
+            if (hostPart.contains("@") && !u.toLowerCase(Locale.ROOT).startsWith("http")) {
                 continue;  // e-posta adresi
             }
             // e-posta adresinin alan adı kısmını bağlantı sanma

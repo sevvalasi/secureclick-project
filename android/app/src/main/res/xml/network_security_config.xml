@@ -4,6 +4,6 @@
   erişebilmek için şifresiz HTTP'ye izin verilir. Sunucu internete açılacaksa HTTPS kullanın ve
   bu izni kaldırın.
 -->
-<network-security-config>
-    <base-config cleartextTrafficPermitted="true" />
+<network-security-config xmlns:tools="http://schemas.android.com/tools">
+    <base-config cleartextTrafficPermitted="true" tools:ignore="InsecureBaseConfiguration" />
 </network-security-config>
