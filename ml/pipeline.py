@@ -1,5 +1,6 @@
 """Tüm hattı sırayla çalıştırır: veri indirme -> güvenli URL toplama -> veri seti ->
-senaryolar -> URL modelleri -> metin modelleri -> füzyon/hipotez değerlendirmesi.
+senaryolar -> URL modelleri -> metin modelleri -> füzyon/hipotez değerlendirmesi ->
+Android cihaz modeli.
 
 Kullanım:  python -m ml.pipeline [--skip-download] [--skip-cv] [--quick]
 """
@@ -17,6 +18,7 @@ STEPS = [
     ("url", ["-m", "ml.train_url_models"]),
     ("text", ["-m", "ml.train_text_models"]),
     ("fusion", ["-m", "ml.evaluate_fusion"]),
+    ("mobile", ["-m", "ml.export_mobile_model"]),
 ]
 
 

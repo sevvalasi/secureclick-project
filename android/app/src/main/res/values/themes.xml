@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.SecureClick" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/brand</item>
+        <item name="colorOnPrimary">@color/surface</item>
+        <item name="android:colorBackground">@color/bg</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/text</item>
+        <item name="android:statusBarColor">@color/bg</item>
+        <item name="android:navigationBarColor">@color/bg</item>
+    </style>
+
+    <!-- Bağlantı kontrolü: diğer uygulamanın üzerinde küçük bir pencere olarak açılır -->
+    <style name="Theme.SecureClick.Dialog" parent="Theme.Material3.DayNight.Dialog.Alert">
+        <item name="colorPrimary">@color/brand</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">92%</item>
+    </style>
+</resources>

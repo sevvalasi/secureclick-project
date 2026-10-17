@@ -62,6 +62,7 @@ Tüm grafikler (ROC/PR, karışıklık matrisi, özellik önemleri) uygulamanın
 - **Modeller** — Random Forest, Gradient Boosting, SVM, TF-IDF + Lojistik Regresyon; RF + SVM topluluğu; isteğe bağlı BERTurk
 - **Canlı kontroller** (isteğe bağlı) — yönlendirme zinciri, SSL sertifikası, WHOIS alan adı yaşı; SSRF korumalı
 - **RESTful API** — Android uygulaması / tarayıcı eklentisi için (`/docs` altında Swagger)
+- **Android uygulaması** — bağlantıları açılmadan önce kontrol eder, paylaş menüsü, isteğe bağlı SMS koruması, çevrimdışı cihaz modeli ([android/README.md](android/README.md))
 - **Performans panosu** — ROC & PR eğrileri, karışıklık matrisi, zamansal "erken tespit" deneyi, hipotez testi, McNemar
 
 ## Hızlı başlangıç
@@ -88,6 +89,7 @@ python -m ml.generate_tr_scenarios # Türkçe dolandırıcılık/meşru senaryol
 python -m ml.train_url_models      # RF, GB, SVM, TF-IDF+LR (+ 5 katlı CV, zamansal deney)
 python -m ml.train_text_models     # Türkçe mesaj modelleri
 python -m ml.evaluate_fusion       # hipotez testi: URL + metin vs yalnızca URL vs kara liste
+python -m ml.export_mobile_model   # Android için çevrimdışı URL modeli (60 KB)
 
 uvicorn api.main:app --reload      # http://localhost:8000
 pytest                             # testler
@@ -119,6 +121,7 @@ secureclick/            Çekirdek paket (eğitim ve API ortak kullanır)
 ml/                     Veri toplama, eğitim ve değerlendirme betikleri
 api/main.py             FastAPI: /api/analyze, /api/metrics, /api/health + web arayüzü
 web/                    Arayüz (bağımlılıksız HTML/CSS/JS, açık/koyu tema)
+android/                Android uygulaması (Java) + çevrimdışı cihaz modeli
 reports/                Eğitim/değerlendirme raporları (JSON) — panoda gösterilir
 models/                 Eğitilmiş modeller (git'e eklenmez; hat ile üretilir)
 tests/                  pytest testleri

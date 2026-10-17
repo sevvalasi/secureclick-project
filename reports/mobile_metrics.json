@@ -1,0 +1,22 @@
+{
+  "C": 8.0,
+  "threshold": 0.44393264216162215,
+  "nonzero_weights": 4041,
+  "test": {
+    "accuracy": 0.9462,
+    "precision": 0.9464,
+    "recall": 0.946,
+    "f1": 0.9462,
+    "roc_auc": 0.9902,
+    "fpr": 0.0536,
+    "threshold": 0.4439,
+    "confusion": {
+      "tn": 4732,
+      "fp": 268,
+      "fn": 270,
+      "tp": 4729
+    },
+    "n": 9999
+  },
+  "size_kb": 60.1
+}

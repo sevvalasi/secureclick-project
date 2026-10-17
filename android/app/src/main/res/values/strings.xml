@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SecureClick</string>
+    <string name="tagline">Tıklamadan önce kontrol et.</string>
+    <string name="share_label">SecureClick ile kontrol et</string>
+    <string name="process_text_label">SecureClick ile kontrol et</string>
+    <string name="link_check_label">SecureClick bağlantı kontrolü</string>
+    <string name="settings">Ayarlar</string>
+
+    <string name="input_hint">Mesajı veya bağlantıyı yapıştırın</string>
+    <string name="paste">Panodan yapıştır</string>
+    <string name="analyze">Analiz et</string>
+    <string name="analyzing">Analiz ediliyor…</string>
+    <string name="empty_input">Lütfen bir mesaj veya bağlantı girin.</string>
+    <string name="recent">Son analizler</string>
+    <string name="clear">Temizle</string>
+    <string name="no_history">Henüz analiz yok.</string>
+    <string name="privacy_note">Analiz için metin SecureClick sunucusuna gönderilir ve orada saklanmaz. Geçmiş yalnızca bu cihazda tutulur.</string>
+
+    <string name="verdict_safe">Güvenli görünüyor</string>
+    <string name="verdict_suspicious">Şüpheli</string>
+    <string name="verdict_malicious">Zararlı olabilir — tıklamayın</string>
+    <string name="verdict_safe_desc">Belirgin bir tehdit işareti bulunamadı. Göndereni tanımıyorsanız yine de dikkatli olun.</string>
+    <string name="verdict_suspicious_desc">Bazı risk işaretleri var. Göndereni başka bir kanaldan doğrulayın.</string>
+    <string name="verdict_malicious_desc">Kimlik avı veya zararlı yazılım bağlantısı özellikleri taşıyor.</string>
+    <string name="risk_score">risk skoru</string>
+    <string name="offline_note">Sunucuya ulaşılamadı: cihazdaki çevrimdışı model kullanıldı (yalnızca URL yapısı değerlendirildi).</string>
+    <string name="text_analysis">Mesaj içeriği</string>
+    <string name="no_links">Mesajda bağlantı bulunamadı; değerlendirme yalnızca metne dayanıyor.</string>
+    <string name="no_signals">Belirgin bir risk işareti yok.</string>
+    <string name="model_rf">Random Forest</string>
+    <string name="model_svm">SVM (n-gram)</string>
+    <string name="model_ensemble">URL modeli</string>
+    <string name="model_text">Mesaj metni (NLP)</string>
+    <string name="model_final">Nihai skor</string>
+    <string name="elapsed">%1$s · %2$.0f ms</string>
+    <string name="source_online">Sunucu modeli</string>
+    <string name="source_offline">Cihaz modeli</string>
+
+    <string name="open_anyway">Yine de aç</string>
+    <string name="open_link">Bağlantıyı aç</string>
+    <string name="close">Kapat</string>
+    <string name="no_browser">Bağlantıyı açacak başka bir uygulama bulunamadı.</string>
+
+    <string name="server_url">Sunucu adresi</string>
+    <string name="server_help">Emülatörde http://10.0.2.2:8000. Gerçek telefonda bilgisayarla aynı Wi-Fi ağına bağlanın ve bilgisayarın yerel IP adresini girin (ör. http://192.168.1.20:8000). Sunucuyu ./run.sh ile başlatın.</string>
+    <string name="test_connection">Bağlantıyı test et</string>
+    <string name="connection_ok">Sunucuya bağlanıldı, modeller hazır.</string>
+    <string name="connection_no_models">Sunucuya bağlanıldı ama modeller yüklü değil.</string>
+    <string name="connection_fail">Sunucuya ulaşılamadı: %1$s</string>
+    <string name="live_checks">Canlı kontroller</string>
+    <string name="live_checks_desc">Yönlendirme zinciri, SSL sertifikası ve alan adı yaşı (daha yavaş).</string>
+    <string name="sms_guard">SMS koruması</string>
+    <string name="sms_guard_desc">Bağlantı içeren SMS geldiğinde otomatik kontrol edip şüpheliyse uyarır. Bağlantı içeren mesajın metni analiz için sunucuya gönderilir.</string>
+    <string name="sms_permission_denied">SMS koruması için SMS alma izni gerekli.</string>
+    <string name="link_guard">Bağlantı koruması</string>
+    <string name="link_guard_desc">SecureClick\'i varsayılan bağlantı açıcı yapın: tıkladığınız her bağlantı açılmadan önce kontrol edilir.</string>
+    <string name="open_defaults">Varsayılan uygulama ayarlarını aç</string>
+    <string name="about">SecureClick · TÜBİTAK 2209-A · Recep Tayyip Erdoğan Üniversitesi. Araştırma prototipidir; kesin sonuç garantisi vermez.</string>
+
+    <string name="channel_alerts">Bağlantı uyarıları</string>
+    <string name="channel_alerts_desc">Şüpheli veya zararlı bağlantı içeren mesajlar</string>
+    <string name="notif_malicious">⛔ Zararlı bağlantı içeren mesaj</string>
+    <string name="notif_suspicious">⚠️ Şüpheli bağlantı içeren mesaj</string>
+    <string name="notif_body">%1$s — tıklamadan önce ayrıntılara bakın.</string>
+</resources>

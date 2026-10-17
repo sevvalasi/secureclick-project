@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Prototip: yerel ağdaki geliştirme sunucusuna (http://10.0.2.2:8000, http://192.168.x.x:8000)
+  erişebilmek için şifresiz HTTP'ye izin verilir. Sunucu internete açılacaksa HTTPS kullanın ve
+  bu izni kaldırın.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>
